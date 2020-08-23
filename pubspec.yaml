@@ -23,6 +23,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_svg: ^0.18.1
+  google_fonts: ^1.1.0
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -45,9 +47,23 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  assets:
+    #    Main Menu
+    - assets/burger_menu.svg
+    - assets/search_icon.svg
+    - assets/cup_icon.svg
+    - assets/home_icon.svg
+    - assets/pin_maps_icon.svg
+    - assets/profile_icon.svg
+
+    #      List Item
+    - assets/Espresso.svg
+    - assets/Cappuccino.svg
+    - assets/macciato.svg
+    - assets/Mocha.svg
+    - assets/latte.svg
+    - assets/list_button.svg
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
