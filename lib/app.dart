@@ -1,5 +1,8 @@
-import 'package:CoffeeShop/pages/home.dart';
+import 'package:CoffeeShop/navigation/locator.dart';
+import 'package:CoffeeShop/navigation/router.dart' as router;
+import 'package:CoffeeShop/services/navigation_service.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class MyApp extends StatelessWidget {
   @override
@@ -10,8 +13,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
+        fontFamily: GoogleFonts.sen().fontFamily,
       ),
-      home: HomePage(),
+      navigatorKey: locator<NavigationService>().navigatorKey,
+      onGenerateRoute: router.generateRoute,
+      initialRoute: '',
+      // home: HomePage(),
     );
   }
 }

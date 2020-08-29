@@ -1,6 +1,8 @@
+import 'package:CoffeeShop/navigation/locator.dart';
+import 'package:CoffeeShop/navigation/route_paths.dart' as routePath;
+import 'package:CoffeeShop/services/navigation_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class ListCoffee extends StatelessWidget {
   final String text;
@@ -15,8 +17,11 @@ class ListCoffee extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final NavigationService _navigationService = locator<NavigationService>();
     return FlatButton(
-      onPressed: () {},
+      onPressed: () {
+        _navigationService.push(routePath.ItemDetail);
+      },
       child: Center(
         child: Container(
           padding: EdgeInsets.symmetric(vertical: 20),
@@ -31,9 +36,7 @@ class ListCoffee extends StatelessWidget {
                 padding: EdgeInsets.only(left: 30),
                 child: Text(
                   '$text',
-                  style: GoogleFonts.sen(
-                    fontSize: 20,
-                  ),
+                  style: TextStyle(fontSize: 20),
                 ),
               ),
               Flexible(

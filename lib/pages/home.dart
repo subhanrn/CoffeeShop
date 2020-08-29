@@ -1,8 +1,9 @@
 import 'package:CoffeeShop/models/coffee_category.dart';
+import 'package:CoffeeShop/utils/constants.dart';
+import 'package:CoffeeShop/widgets/bottom_navigation.dart';
 import 'package:CoffeeShop/widgets/list_coffee.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -10,7 +11,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _selectedIndex = 1;
+  int _selectedIndex = 0;
 
   List<CoffeeCategory> _funcListCoffeeCategory() {
     List<CoffeeCategory> _list = [];
@@ -50,62 +51,24 @@ class _HomePageState extends State<HomePage> {
 
   List<BottomNavigationBarItem> _barIcons() {
     return [
-      _createBottomNavigationBarItem('assets/home_icon.svg', 'Home'),
-      _createBottomNavigationBarItem('assets/pin_maps_icon.svg', 'Locations'),
-      _createBottomNavigationBarItem(
+      createBottomNavigationBarItem(
+        'assets/home_icon.svg',
+        'Home',
+      ),
+      createBottomNavigationBarItem(
+        'assets/pin_maps_icon.svg',
+        'Locations',
+      ),
+      createBottomNavigationBarItem(
         'assets/cup_icon.svg',
         'Coffee',
         notificationCount: 1,
       ),
-      _createBottomNavigationBarItem('assets/profile_icon.svg', 'Profile'),
+      createBottomNavigationBarItem(
+        'assets/profile_icon.svg',
+        'Profile',
+      ),
     ];
-  }
-
-  BottomNavigationBarItem _createBottomNavigationBarItem(
-      String asset, String semantic,
-      {int notificationCount = 0}) {
-    return BottomNavigationBarItem(
-      icon: Stack(
-        children: [
-          SvgPicture.asset(
-            asset,
-            semanticsLabel: semantic,
-            height: 25,
-            width: 25,
-          ),
-          if (notificationCount > 0)
-            Positioned(
-              top: 0,
-              right: 0,
-              child: Stack(
-                children: <Widget>[
-                  Icon(
-                    Icons.brightness_1,
-                    size: 15,
-                    color: Color(0xff8C746A),
-                  ),
-                  Positioned(
-                    top: 2.5,
-                    right: 4,
-                    child: Text(
-                      '$notificationCount',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ),
-        ],
-      ),
-      title: Text(
-        '',
-        style: TextStyle(fontSize: 0),
-      ),
-    );
   }
 
   void _onItemTapped(int index) {
@@ -117,10 +80,12 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     List<CoffeeCategory> _listCoffeeCategory = _funcListCoffeeCategory();
+    List<BottomNavigationBarItem> _listBarIcons = _barIcons();
+
     return Scaffold(
       body: SafeArea(
         child: Container(
-          color: Color(0xfffaf4ee),
+          color: DefaultColor,
           child: Column(children: [
             Container(
               padding: EdgeInsets.symmetric(
@@ -149,16 +114,10 @@ class _HomePageState extends State<HomePage> {
               alignment: Alignment.topLeft,
               child: Text.rich(
                 TextSpan(
-                  style: GoogleFonts.sen(
-                    textStyle: TextStyle(
-                      fontFamily: 'Sen',
-                      fontSize: 36,
-                      color: Color(0xff000000),
-                    ),
-                  ),
+                  style: TextStyle(fontSize: 36),
                   children: [
                     TextSpan(
-                      text: 'It\'s Great',
+                      text: "It's Great",
                     ),
                     TextSpan(
                       text: ' ',
@@ -169,7 +128,7 @@ class _HomePageState extends State<HomePage> {
                     TextSpan(
                       text: 'Day for\nCoffee.',
                       style: TextStyle(
-                        color: Color(0xffb98875),
+                        color: BrownColor,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
@@ -199,20 +158,23 @@ class _HomePageState extends State<HomePage> {
       ),
       bottomNavigationBar: Container(
         height: 90,
-        color: Color(0xfffaf4ee),
+        color: DefaultColor,
         child: ClipRRect(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(46),
             topRight: Radius.circular(46),
           ),
-          child: BottomNavigationBar(
-            items: _barIcons(),
-            currentIndex: _selectedIndex,
-            selectedItemColor: Colors.amber[800],
-            onTap: _onItemTapped,
-          ),
+          child: _bottomNavBar(_listBarIcons),
         ),
       ),
+    );
+  }
+
+  BottomNavigationBar _bottomNavBar(List<BottomNavigationBarItem> items) {
+    return BottomNavigationBar(
+      items: items,
+      currentIndex: _selectedIndex,
+      onTap: _onItemTapped,
     );
   }
 }
